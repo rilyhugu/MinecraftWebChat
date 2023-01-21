@@ -1,0 +1,5 @@
+name: WebChat
+version: '${version}'
+main: net.studiorily.webchat.WebChat
+api-version: 1.19
+authors: [ RilyHugu ]

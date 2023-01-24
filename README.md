@@ -7,4 +7,4 @@
 - Java WebSockets (MIT License)
 
 ## ライセンス
-MITだよ
+GNU GPL3 だよ

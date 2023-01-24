@@ -9,9 +9,4 @@ public class IconGetter {
     public static String getPlayerIcon(UUID uuid) {
         return WebChat.getPlugin().getDataFolder() + "\\cache\\" + uuid + ".png";
     }
-
-    public static String getWebIcon() {
-        String path = "/icon/default_web.png";
-
-    }
 }

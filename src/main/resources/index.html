@@ -54,6 +54,19 @@
 
                     chatContent.innerHTML = "web-" + json["instance"] + "さんがチャットに参加しました";
                     chatArea.appendChild(chatContent);
+                } else if(json["type"] === "exit") {
+                    var chatArea = document.getElementById("chat");
+                    var chatContent = document.createElement("div");
+
+                    chatContent.innerHTML = "web-" + json["instance"] + "さんがチャットから退出しました";
+                    chatArea.appendChild(chatContent);
+                } else {
+                    var chatArea = document.getElementById("chat");
+                    var chatContent = document.createElement("div");
+
+                    chatContent.innerHTML = "めっちゃ不正なリクエストやんけｗ";
+                    chatContent.style.color = "red";
+                    chatArea.appendChild(chatContent);
                 };
             };
 

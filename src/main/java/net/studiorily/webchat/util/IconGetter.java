@@ -1,6 +1,7 @@
 package net.studiorily.webchat.util;
 
 import net.studiorily.webchat.WebChat;
+import org.bukkit.Bukkit;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,11 +16,11 @@ public class IconGetter {
 
     public static String getWebIcon() {
         try {
-            URL url = WebChat.getPlugin().getClass().getResource("\\resources\\icon\\default_web.png");
-            File file = new File(Objects.requireNonNull(url).getFile());
-
+            URL url = WebChat.getPlugin().getClass().getResource("\\icon\\default_web.png");
+            System.out.println(url.getPath());
+            File file = new File(url.getFile());
             if (file.exists()) {
-                return Base64Encoder.iconAsBase64(file.getPath());
+                return Base64Encoder.iconAsBase64(file);
 
             } else {
                 return null;

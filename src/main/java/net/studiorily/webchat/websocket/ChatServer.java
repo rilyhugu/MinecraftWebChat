@@ -29,6 +29,12 @@ public class ChatServer extends WebSocketServer {
 
     @Override
     public void onClose(WebSocket conn, int code, String reason, boolean remote) {
+        String json = String.format("""
+                {"type": "exit",
+                 "instance": "%s"
+                }
+                """, conn.hashCode());
+        broadcast(json);
         Bukkit.broadcastMessage("§bweb-" + conn.hashCode() + "さんがチャットから退出しました");
     }
 

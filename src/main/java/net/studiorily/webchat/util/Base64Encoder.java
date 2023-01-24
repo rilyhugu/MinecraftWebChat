@@ -12,4 +12,9 @@ public class Base64Encoder {
         byte[] iconByte = FileUtils.readFileToByteArray(icon);
         return Base64.getEncoder().encodeToString(iconByte);
     }
+
+    public static String iconAsBase64(File file) throws IOException {
+        byte[] iconByte = FileUtils.readFileToByteArray(file);
+        return Base64.getEncoder().encodeToString(iconByte);
+    }
 }

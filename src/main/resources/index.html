@@ -29,23 +29,39 @@
 
             connection.onmessage = function(event) {
                 var json = JSON.parse(event.data);
+                if(json["type"] === "message") {
 
+                    var chatArea = document.getElementById("chat");
+                    var chatContent = document.createElement("div");
+                    var playerIcon = document.createElement("img");
+                    var playerMessage = document.createElement("span");
+
+                    playerIcon.src = "data:image/png;base64," + json["icon"];
+                    playerIcon.setAttribute("height", "50px");
+                    playerIcon.className = "rounded-circle"
+                    playerIcon.alt = "icon-" + json["player"];
+
+                    playerMessage.innerHTML = json["player"] + ": " + json["message"]
+
+                    chatContent.appendChild(playerIcon);
+                    chatContent.appendChild(playerMessage);
+                    chatContent.className = "p-2"
+
+                    chatArea.appendChild(chatContent);
+                } else if(json["type"] === "join") {
+                    var chatArea = document.getElementById("chat");
+                    var chatContent = document.createElement("div");
+
+                    chatContent.innerHTML = "web-" + json["instance"] + "さんがチャットに参加しました";
+                    chatArea.appendChild(chatContent);
+                };
+            };
+
+            connection.onclose = function() {
                 var chatArea = document.getElementById("chat");
                 var chatContent = document.createElement("div");
-                var playerIcon = document.createElement("img");
-                var playerMessage = document.createElement("span");
 
-                playerIcon.src = "data:image/png;base64," + json["icon"];
-                playerIcon.setAttribute("height", "50px");
-                playerIcon.className = "rounded-circle"
-                playerIcon.alt = "icon-" + json["player"];
-                
-                playerMessage.innerHTML = json["player"] + ": " + json["message"]
-
-                chatContent.appendChild(playerIcon);
-                chatContent.appendChild(playerMessage);
-                chatContent.className = "p-2"
-    
+                chatContent.innerHTML = "サーバーから切断されました";
                 chatArea.appendChild(chatContent);
             };
 
@@ -55,7 +71,7 @@
                 if(msg.value.length > 0) {
                     connection.send(msg.value);
                 };
-            }
+            };
         </script>
     </body>
 </html>

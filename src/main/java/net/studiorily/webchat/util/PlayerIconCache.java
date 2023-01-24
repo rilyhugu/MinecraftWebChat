@@ -35,8 +35,4 @@ public class PlayerIconCache implements Listener {
             e.printStackTrace();
         }
     }
-
-    public static String getIcon(UUID uuid) {
-        return WebChat.getPlugin().getDataFolder() + "\\cache\\" + uuid + ".png";
-    }
 }

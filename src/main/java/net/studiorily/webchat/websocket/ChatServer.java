@@ -16,8 +16,13 @@ public class ChatServer extends WebSocketServer {
 
     @Override
     public void onOpen(WebSocket conn, ClientHandshake handshake) {
-        conn.send("Welcome to the server!");
-        broadcast( "new connection: " + handshake.getResourceDescriptor() );
+        //conn.send("Welcome to the server!");
+        String json = String.format("""
+                {"type": "join",
+                 "instance": "%s"
+                }
+                """, conn.hashCode());
+        broadcast(json);
         Bukkit.getLogger().info("new connection to " + conn.getRemoteSocketAddress());
     }
 
@@ -28,7 +33,16 @@ public class ChatServer extends WebSocketServer {
 
     @Override
     public void onMessage(WebSocket conn, String message) {
-        Bukkit.broadcastMessage("§f<§bWebChat§f> " + message);
+        Bukkit.broadcastMessage("§f<§bweb-" + conn.hashCode() + "§f> " + message);
+
+        String json = String.format("""
+                    {"type": "message",
+                     "player": "web-%s",
+                     "icon": "",
+                     "message": "%s"}
+                    """, conn.hashCode(), message);
+
+        broadcast(json);
     }
 
     @Override

@@ -5,19 +5,20 @@ import org.bukkit.Bukkit;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Objects;
 import java.util.UUID;
 
 public class IconGetter {
     public static String getPlayerIcon(UUID uuid) {
-        return WebChat.getPlugin().getDataFolder() + "\\cache\\" + uuid + ".png";
+        return WebChat.getPlugin().getDataFolder() + "/cache/" + uuid + ".png";
     }
 
     public static String getWebIcon() {
         try {
-            URL url = WebChat.getPlugin().getClass().getResource("\\icon\\default_web.png");
-            System.out.println(url.getPath());
+            InputStream url = WebChat.getPlugin().getResource("icon/default_web.png");
+            Bukkit.getLogger().info(url.getPath());
             File file = new File(url.getFile());
             if (file.exists()) {
                 return Base64Encoder.iconAsBase64(file);

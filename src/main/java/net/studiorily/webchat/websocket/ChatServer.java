@@ -1,5 +1,6 @@
 package net.studiorily.webchat.websocket;
 
+import net.studiorily.webchat.util.IconGetter;
 import org.bukkit.Bukkit;
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
@@ -16,19 +17,19 @@ public class ChatServer extends WebSocketServer {
 
     @Override
     public void onOpen(WebSocket conn, ClientHandshake handshake) {
-        //conn.send("Welcome to the server!");
         String json = String.format("""
                 {"type": "join",
                  "instance": "%s"
                 }
                 """, conn.hashCode());
         broadcast(json);
+        Bukkit.broadcastMessage("§bweb-" + conn.hashCode() + "さんがチャットに参加しました");
         Bukkit.getLogger().info("new connection to " + conn.getRemoteSocketAddress());
     }
 
     @Override
     public void onClose(WebSocket conn, int code, String reason, boolean remote) {
-        Bukkit.getLogger().info("closed " + conn.getRemoteSocketAddress() + " with exit code " + code + " additional info: " + reason);
+        Bukkit.broadcastMessage("§bweb-" + conn.hashCode() + "さんがチャットから退出しました");
     }
 
     @Override
@@ -38,9 +39,9 @@ public class ChatServer extends WebSocketServer {
         String json = String.format("""
                     {"type": "message",
                      "player": "web-%s",
-                     "icon": "",
+                     "icon": "%s",
                      "message": "%s"}
-                    """, conn.hashCode(), message);
+                    """, conn.hashCode(), IconGetter.getWebIcon(), message);
 
         broadcast(json);
     }
@@ -52,6 +53,6 @@ public class ChatServer extends WebSocketServer {
 
     @Override
     public void onStart() {
-        Bukkit.getLogger().info("server started successfully");
+        Bukkit.getLogger().info("WebSocketサーバーを起動しました");
     }
 }

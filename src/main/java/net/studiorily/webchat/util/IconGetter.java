@@ -1,23 +1,15 @@
 package net.studiorily.webchat.util;
 
 import net.studiorily.webchat.WebChat;
-import org.apache.commons.io.FileUtils;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Base64;
 import java.util.Objects;
 import java.util.UUID;
 
 public class IconGetter {
-    private static String webIcon = null;
-    private static String missingIcon = null;
-
-    static {
-        webIcon = resisterDefaultIcon("icon/default_web.png");
-        missingIcon =  resisterDefaultIcon("icon/default_missing.png");
-    }
+    private static final String WEB_ICON = resisterDefaultIcon("icon/default_web.png");
+    private static final String MISSING_ICON = resisterDefaultIcon("icon/default_missing.png");
 
     private static String resisterDefaultIcon(String path) {
         try {
@@ -40,10 +32,10 @@ public class IconGetter {
     }
 
     public static String getWebIcon() {
-        return webIcon;
+        return WEB_ICON;
     }
 
     public static String getMissingIcon() {
-        return missingIcon;
+        return MISSING_ICON;
     }
 }

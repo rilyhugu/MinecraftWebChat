@@ -7,14 +7,11 @@ import java.io.IOException;
 import java.util.Base64;
 
 public class Base64Encoder {
-    public static String iconAsBase64(String path) throws IOException {
-        File icon = new File(path);
-        byte[] iconByte = FileUtils.readFileToByteArray(icon);
-        return Base64.getEncoder().encodeToString(iconByte);
+    public static String iconAsBase64(byte[] byteArray){
+        return Base64.getEncoder().encodeToString(byteArray);
     }
 
-    public static String iconAsBase64(File file) throws IOException {
-        byte[] iconByte = FileUtils.readFileToByteArray(file);
-        return Base64.getEncoder().encodeToString(iconByte);
+    public static byte[] fileAsByteArray(String path) throws IOException {
+        return FileUtils.readFileToByteArray(new File(path));
     }
 }

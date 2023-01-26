@@ -11,12 +11,16 @@
     <body>
         <div class="m-4">
             <h3>WebSocketチャット</h3>
-            <div>
-                <div id="chat">
+            
+            <div id="scrollable" class="p-3 rounded overflow-auto" style="height: 80vh; background-color: rgb(230, 230, 230);">
+                <div id="chat" class="list-group list-group-flush">
+
                 </div>
             </div>
+
             <div class="fixed-bottom">
                 <div class="p-4">
+                    <label for="msg"></label>
                     <input type="text" id="msg">
                     <input type="button" value="Send" onClick="sendMsgToServer()">
                 </div>
@@ -33,21 +37,25 @@
 
                     var chatArea = document.getElementById("chat");
                     var chatContent = document.createElement("div");
+                    var msgArea = document.createElement("div");
                     var playerIcon = document.createElement("img");
-                    var playerMessage = document.createElement("span");
 
                     playerIcon.src = "data:image/png;base64," + json["icon"];
                     playerIcon.setAttribute("height", "50px");
-                    playerIcon.className = "rounded-circle"
+                    playerIcon.className = "rounded-circle, mx-2"
                     playerIcon.alt = "icon-" + json["player"];
 
-                    playerMessage.innerHTML = json["player"] + ": " + json["message"]
+                    msgArea.innerHTML = "<b>" + json["player"] + "</b><br>" + json["message"];
 
+                    
                     chatContent.appendChild(playerIcon);
-                    chatContent.appendChild(playerMessage);
-                    chatContent.className = "p-2"
+                    chatContent.appendChild(msgArea);
+                    chatContent.className = "list-group-item d-flex flex-row p-2 bg-transparent";
 
                     chatArea.appendChild(chatContent);
+
+                    var scrollArea = document.getElementById("scrollable");
+                    scrollArea.scrollTop = scrollArea.scrollHeight;
                 } else if(json["type"] === "join") {
                     var chatArea = document.getElementById("chat");
                     var chatContent = document.createElement("div");
